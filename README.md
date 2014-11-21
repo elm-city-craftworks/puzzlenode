@@ -7,9 +7,11 @@ and is inspired by similar efforts such as
 [Project Euler](http://projecteuler.net/) and the
 [Internet Problem Solving Contest](http://ipsc.ksp.sk/).
 
-Puzzlenode is developed, maintained, and supported by
-[Practicing Ruby](http://practicingruby.com) supporters
-and staff. If you'd like to get involved join the conversation on our mailing list: <puzzlenode@librelist.com>
+Puzzlenode was originally developed by students and staff of Mendicant
+University. Is is now maintained and supported by
+[Practicing Ruby](http://practicingruby.com) supporters and staff. If you'd
+like to get involved join the conversation on our mailing list:
+<puzzlenode@librelist.com>
 
 ## Installation
 
