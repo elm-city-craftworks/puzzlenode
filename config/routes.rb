@@ -1,36 +1,35 @@
 Puzzlenode::Application.routes.draw do
   root :to => 'puzzles#index'
 
-  match '/auth/:provider/callback',      :to => 'sessions#create'
-  match '/auth/failure',                 :to => 'sessions#failure'
-  match '/logout' => 'sessions#destroy', :as => 'logout'
-  match '/login' => 'sessions#new',      :as => 'login'
+  match '/auth/:provider/callback' => 'sessions#create', :via => [:get, :post]
+  get '/auth/failure'              => 'sessions#failure'
+  get '/logout'                    => 'sessions#destroy', :as => 'logout'
+  get '/login'                     => 'sessions#new',     :as => 'login'
 
   resources :puzzles do
     resources :comments,    :module => "puzzles"
     resources :submissions, :module => "puzzles"
   end
 
-  match '/tags/:tag',                     :to => 'puzzles#tag',
-                                          :as => "tag"
+  get '/tags/:tag' => 'puzzles#tag',     :as => "tag"
+  get '/users/settings' => 'users#edit', :as => "user_settings"
 
-  match '/users/settings' => 'users#edit', :as => "user_settings"
   resources :users do
-    resources :submissions, :controller => "Users::Submissions" do
+    resources :submissions, :controller => "submissions", :module => "users" do
       match :rate, :on => :member, :via => [:put, :post]
     end
   end
 
   resources :announcements
 
-  match '/leaderboard', :to => "leaderboard#index"
+  get '/leaderboard' => "leaderboard#index"
 
   namespace :admin do
     resources :users
     resources :puzzles
     resources :announcements
 
-    match "/" => 'puzzles#index', :as => 'admin'
+    get "/" => 'puzzles#index', :as => 'admin'
   end
 
   get "slugger" => "slugger#index", :as => "slugger"

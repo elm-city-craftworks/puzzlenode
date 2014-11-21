@@ -5,5 +5,5 @@
   #puzzle-ratings
     %h3 Difficulty Ratings
     %ul
-      - @ratings.each do |rating, count|
-        %li= "#{rating} (#{count})"
+      - @ratings.each do |rating|
+        %li= "#{rating.difficulty} (#{rating.total})"

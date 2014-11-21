@@ -1,7 +1,7 @@
 class LeaderboardController < ApplicationController
-  
+
   def index
-    @users = User.leaderboard
+    @users = User.leaderboard.to_a
 
     @top_three = []
     @top_three << [:gold,   @users.shift]
@@ -9,5 +9,4 @@ class LeaderboardController < ApplicationController
     @top_three << [:bronze, @users.shift]
     @local_users = current_user.local_leaderboard unless current_user.nil?
   end
-
 end

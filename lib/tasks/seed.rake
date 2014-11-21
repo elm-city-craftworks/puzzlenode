@@ -1,4 +1,4 @@
-require 'faker'
+require 'ffaker'
 require_relative '../faker/puzzle'
 require_relative '../faker/date'
 

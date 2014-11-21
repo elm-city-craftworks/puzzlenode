@@ -4,12 +4,14 @@ class Submission < ActiveRecord::Base
 
   before_create :score!
 
-  scope :correct, where(:correct => true)
-
   validates_presence_of :file
   validate :only_one_correct_submission_per_puzzle_per_user
 
   attr_accessor :file
+
+  def self.correct
+    where(:correct => true)
+  end
 
   def rating
     @rating ||= Rating.where(:puzzle_id => puzzle_id, :user_id => user_id)

@@ -9,11 +9,14 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216195839) do
+ActiveRecord::Schema.define(version: 20141121201838) do
 
-  create_table "announcements", :force => true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "announcements", force: true do |t|
     t.text     "body"
     t.text     "title"
     t.integer  "author_id"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.datetime "updated_at"
   end
 
-  create_table "attachments", :force => true do |t|
+  create_table "attachments", force: true do |t|
     t.integer  "puzzle_id"
     t.string   "file"
     t.string   "description"
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.datetime "updated_at"
   end
 
-  create_table "authorizations", :force => true do |t|
+  create_table "authorizations", force: true do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.datetime "updated_at"
   end
 
-  create_table "comments", :force => true do |t|
+  create_table "comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "puzzle_id"
     t.text     "body"
@@ -45,9 +48,9 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.datetime "updated_at"
   end
 
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0
+    t.integer  "attempts",   default: 0
     t.text     "handler"
     t.text     "last_error"
     t.datetime "run_at"
@@ -59,10 +62,10 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "emails", :force => true do |t|
-    t.string   "from_address",     :null => false
+  create_table "emails", force: true do |t|
+    t.string   "from_address",     null: false
     t.string   "reply_to_address"
     t.string   "subject"
     t.text     "to_address"
@@ -74,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.datetime "updated_at"
   end
 
-  create_table "puzzles", :force => true do |t|
+  create_table "puzzles", force: true do |t|
     t.text     "name"
     t.text     "short_description"
     t.text     "description"
@@ -85,11 +88,11 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.string   "created_by_url"
     t.date     "released_on"
     t.text     "notice"
-    t.boolean  "published",         :default => false
+    t.boolean  "published",         default: false
     t.string   "slug"
   end
 
-  create_table "ratings", :force => true do |t|
+  create_table "ratings", force: true do |t|
     t.integer  "user_id"
     t.integer  "puzzle_id"
     t.string   "difficulty"
@@ -97,11 +100,11 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.datetime "updated_at"
   end
 
-  add_index "ratings", ["puzzle_id"], :name => "index_ratings_on_puzzle_id"
-  add_index "ratings", ["user_id", "puzzle_id"], :name => "index_ratings_on_user_id_and_puzzle_id", :unique => true
-  add_index "ratings", ["user_id"], :name => "index_ratings_on_user_id"
+  add_index "ratings", ["puzzle_id"], name: "index_ratings_on_puzzle_id", using: :btree
+  add_index "ratings", ["user_id", "puzzle_id"], name: "index_ratings_on_user_id_and_puzzle_id", unique: true, using: :btree
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
-  create_table "submissions", :force => true do |t|
+  create_table "submissions", force: true do |t|
     t.integer  "user_id"
     t.integer  "puzzle_id"
     t.boolean  "correct"
@@ -110,7 +113,7 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.datetime "updated_at"
   end
 
-  create_table "taggings", :force => true do |t|
+  create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
     t.string   "taggable_type"
@@ -120,22 +123,25 @@ ActiveRecord::Schema.define(:version => 20130216195839) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
-  create_table "tags", :force => true do |t|
-    t.string "name"
+  create_table "tags", force: true do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
   end
 
-  create_table "users", :force => true do |t|
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "users", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",               :default => false
+    t.boolean  "admin",               default: false
     t.text     "nickname"
-    t.boolean  "draft_access",        :default => false
+    t.boolean  "draft_access",        default: false
     t.string   "email"
-    t.boolean  "notify_comment_made", :default => false, :null => false
+    t.boolean  "notify_comment_made", default: false, null: false
   end
 
 end

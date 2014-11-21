@@ -53,9 +53,7 @@ module Support
     end
 
     def assert_title(title)
-      within('title') do
-        assert has_content?(title), "Title #{title.inspect} does not exist"
-      end
+      assert_equal page.title, title, "Title #{title.inspect} does not exist"
     end
 
     def click_link_within(scope, text)

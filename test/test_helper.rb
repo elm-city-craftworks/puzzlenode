@@ -1,16 +1,23 @@
-ENV["RAILS_ENV"] = "test"
+ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'capybara/rails'
-require 'support/integration'
-require 'support/mini_contest'
-require 'test_notifier/runner/minitest'
+require 'minitest/rails'
+require 'minitest/rails/capybara'
+require_relative 'support/integration'
+require_relative 'support/mini_contest'
 
-TestNotifier.silence_no_notifier_warning = true
-Turn.config.natural                      = true
+DatabaseCleaner.strategy = :truncation
 
 class ActiveSupport::TestCase
+  extend MiniContest
+  include FactoryGirl::Syntax::Methods
+
+  ActiveRecord::Migration.check_pending!
+
+  # Depreciated test helper method
+  #
   def build_puzzle
+    Rails.logger.warn "DEPRECATION WARNING: build_puzzle will be removed. Use create(:puzzle) instead"
     test_tempfile = Tempfile.new("puzzle_sample")
     test_tempfile << "Sample Text"
     test_tempfile.rewind
@@ -18,7 +25,10 @@ class ActiveSupport::TestCase
     FactoryGirl.create(:puzzle, :file => test_tempfile)
   end
 
+  # Depreciated test helper method
+  #
   def create_submission(puzzle, user, correct)
+    Rails.logger.warn "DEPRECATION WARNING: create_submission will be removed. Use create(:submission) instead"
     Submission.create(
       :user   => user,
       :puzzle => puzzle,
@@ -26,14 +36,23 @@ class ActiveSupport::TestCase
     ).update_attribute(:correct, correct)
   end
 
+  # Depreciated test helper method
+  #
   def cleanup_attachment(attachment)
+    Rails.logger.warn "DEPRECATION WARNING: cleanup_attachment will be removed. Use FileUtils directly to remove the file"
     FileUtils.rm_rf(attachment.file.path)
   end
 
+  before :each do
+    DatabaseCleaner.start
+  end
+
+  after :each do
+    DatabaseCleaner.clean
+  end
 end
 
-class ActionDispatch::IntegrationTest
-  include Capybara::DSL
+class Capybara::Rails::TestCase
   include Support::Integration
 
   setup do

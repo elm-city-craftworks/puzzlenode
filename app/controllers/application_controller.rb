@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  helper_method :current_user, :signed_in?
+
   private
 
   def authenticate_admin_user!
@@ -11,14 +13,12 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.find_by_id(session[:user_id])
+    @current_user ||= User.where(id: session[:user_id]).first
   end
 
   def signed_in?
     !!current_user
   end
-
-  helper_method :current_user, :signed_in?
 
   def current_user=(user)
     @current_user = user

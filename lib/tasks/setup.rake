@@ -1,24 +1,22 @@
 require 'fileutils'
 require 'securerandom'
-require 'rainbow'
+require 'rainbow/ext/string'
 
 namespace :setup do
   desc 'Create application.yml file'
   task :configuration do
-    application = File.join(Rails.root, 'config', 'application.yml')
+    env = File.join(Rails.root, '.env')
 
-    unless File.exists?(application)
+    unless File.exists?(env)
       secret   = SecureRandom.hex(64)
-      template = ERB.new(File.read(application + '.example'))
+      template = ERB.new(File.read(env + '.example'))
 
-      File.open(application, 'w') {|f| f.write(template.result(binding)) }
+      File.open(env, 'w') {|f| f.write(template.result(binding)) }
     end
 
     puts "Configuration file created"
   end
 end
-
-
 
 desc 'Setup project for development / deploy'
 task :setup do
@@ -90,4 +88,3 @@ def silence
 
   return_value
 end
-

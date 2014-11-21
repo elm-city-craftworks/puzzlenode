@@ -1,10 +1,7 @@
 !!! Strict
 %html
   %head
-    %title
-      = yield(:title).blank? ? controller_name.humanize : yield(:title)
-      \- PuzzleNode
-
+    %title #{yield(:title).blank? ? controller_name.humanize : yield(:title)} - PuzzleNode
 
     %meta{:name=>"viewport", :content=>"width=1050"}
     = stylesheet_link_tag 'application'

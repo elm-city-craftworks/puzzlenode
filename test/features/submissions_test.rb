@@ -1,7 +1,6 @@
-require 'test_helper'
+require_relative '../test_helper'
 
-class SubmissionsTest < ActionDispatch::IntegrationTest
-
+feature "Submission" do
   setup do
     @user = FactoryGirl.create(:user)
     @puzzle = FactoryGirl.create(:puzzle)

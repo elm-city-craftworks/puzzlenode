@@ -12,7 +12,7 @@
     #notice= md @puzzle.notice
 
   #description
-    = md @puzzle.description
+    ~ md @puzzle.description
     %h2 Files
     #files
       = file_link "#{@puzzle.slug}.md", puzzle_path(@puzzle, :format => "md")

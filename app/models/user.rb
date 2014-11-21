@@ -3,10 +3,15 @@ class User < ActiveRecord::Base
   has_many :announcements,  :dependent => :destroy, :foreign_key => "author_id"
   has_many :submissions,    :dependent => :destroy
 
-  attr_protected :admin, :draft_access
+  # attr_protected :admin, :draft_access FIXME
 
-  scope :admin, where(:admin => true)
-  scope :eligible_for_display, where(:admin => false, :draft_access => false)
+  def self.admin
+    where(:admin => true)
+  end
+
+  def self.eligible_for_display
+    where(:admin => false, :draft_access => false)
+  end
 
   def self.create_from_hash!(hash)
     create(:name     => hash['info']['name'],

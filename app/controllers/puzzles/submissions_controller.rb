@@ -4,7 +4,11 @@ class Puzzles::SubmissionsController < Puzzles::Base
   end
 
   def create
-    @submission = @puzzle.submissions.new(params[:submission])
+    unless params[:submission].blank?
+      @submission = @puzzle.submissions.new(submission_params)
+    else
+      @submission = @puzzle.submissions.new
+    end
 
     @submission.user = current_user
 
@@ -16,5 +20,11 @@ class Puzzles::SubmissionsController < Puzzles::Base
       }.join("<br/>").html_safe
       render :action => :new
     end
+  end
+
+  private
+
+  def submission_params
+    params.require(:submission).permit(:file)
   end
 end

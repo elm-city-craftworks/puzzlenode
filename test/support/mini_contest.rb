@@ -1,21 +1,6 @@
 # From https://github.com/citrusbyte/contest/blob/master/lib/contest.rb
 
 module MiniContest
-
-  def setup(&block)
-    define_method :setup do
-      super(&block)
-      instance_eval(&block)
-    end
-  end
-
-  def teardown(&block)
-    define_method :teardown do
-      instance_eval(&block)
-      super(&block)
-    end
-  end
-
   def context(*name, &block)
     subclass = Class.new(self)
     remove_tests(subclass)
@@ -46,8 +31,4 @@ module MiniContest
       subclass.send(:undef_method, meth.to_sym)
     end
   end
-end
-
-class MiniTest::Unit::TestCase
-  extend MiniContest
 end

@@ -13,8 +13,8 @@ class Puzzles::CommentsController < Puzzles::Base
   end
 
   def create
-    params[:comment][:user_id] = current_user.id
-    @comment = @puzzle.comments.new(params[:comment])
+    @comment      = @puzzle.comments.new(comment_params)
+    @comment.user = current_user
 
     if @comment.save
       flash[:notice] = "Comment sucessfully created."
@@ -25,7 +25,7 @@ class Puzzles::CommentsController < Puzzles::Base
   end
 
   def update
-    if @comment.update_attributes(params[:comment])
+    if @comment.update_attributes(comment_params)
       flash[:notice] = "Comment sucessfully updated."
       redirect_to puzzle_comments_path(@puzzle)
     else
@@ -58,5 +58,9 @@ class Puzzles::CommentsController < Puzzles::Base
       flash[:error] = "You can't access the requested comment"
       redirect_to puzzle_comments_path(@puzzle)
     end
+  end
+
+  def comment_params
+    params.require(:comment).permit(:body)
   end
 end

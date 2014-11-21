@@ -13,7 +13,7 @@ module Admin
     end
 
     def create
-      @puzzle = Puzzle.new(params[:puzzle])
+      @puzzle = Puzzle.new(puzzle_params)
 
       if @puzzle.save
         flash[:notice] = "Puzzle sucessfully created"
@@ -24,11 +24,12 @@ module Admin
     end
 
     def edit
-      @ratings = @puzzle.ratings.count(:group => :difficulty)
+      @ratings = @puzzle.ratings.select("difficulty, count(id) as total").
+        group(:difficulty)
     end
 
     def update
-      if @puzzle.update_attributes(params[:puzzle])
+      if @puzzle.update_attributes(puzzle_params)
         flash[:notice] = "Puzzle sucessfully updated"
         redirect_to puzzle_path(@puzzle)
       else
@@ -47,6 +48,10 @@ module Admin
 
     def find_puzzle
       @puzzle = Puzzle.find_by_slug!(params[:id])
+    end
+
+    def puzzle_params
+      params.require(:puzzle).permit!
     end
   end
 end

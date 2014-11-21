@@ -1,7 +1,7 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 class SubmissionTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @user   = FactoryGirl.create(:user)
     @file   = Tempfile.new("test_tempfile")
     @file.write "SOLUTION!"
@@ -14,7 +14,7 @@ class SubmissionTest < ActiveSupport::TestCase
     @file.rewind
   end
 
-  def teardown
+  teardown do
     @file.close
     @file.unlink
   end

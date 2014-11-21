@@ -6,13 +6,10 @@ tmp
 *.swp
 .sass-cache
 config/database.yml
-config/application.yml
-config/omniauth.yml
 public/attachments
 public/assets
-lib/development_mail_interceptor.rb
+public/uploads
 .idea
 Vagrantfile
 .vagrant
-bin/
-public/uploads
+.env

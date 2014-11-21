@@ -22,7 +22,7 @@ module Admin
       @user.admin = params[:user].delete("admin")
       @user.draft_access = params[:user].delete("draft_access")
 
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         flash[:notice] = "User sucessfully updated"
         redirect_to admin_users_path
       else
@@ -41,6 +41,10 @@ module Admin
 
     def find_user
       @user = User.find(params[:id])
+    end
+
+    def user_params
+      params.require(:user).permit!
     end
   end
 end

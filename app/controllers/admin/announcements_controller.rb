@@ -13,7 +13,7 @@ module Admin
     end
 
     def create
-      @announcement = Announcement.new(params[:announcement])
+      @announcement = Announcement.new(announcement_params)
 
       if @announcement.save
         flash[:notice] = "Announcement sucessfully created"
@@ -28,7 +28,7 @@ module Admin
     end
 
     def update
-      if @announcement.update_attributes(params[:announcement])
+      if @announcement.update_attributes(announcement_params)
         flash[:notice] = "Announcement sucessfully updated"
         redirect_to announcement_path(@announcement)
       else
@@ -47,6 +47,10 @@ module Admin
 
     def find_announcement
       @announcement = Announcement.find(params[:id])
+    end
+
+    def announcement_params
+      params.require(:announcement).permit!
     end
   end
 end
