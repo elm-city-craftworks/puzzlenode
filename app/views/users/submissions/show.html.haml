@@ -14,9 +14,12 @@
 
   - unless @submission.correct
     %p.header-information
-      If you think you have found a defect in one of our puzzles and it is not
-      listed below, contact us at puzzlenode@gmail.com. You may also be able to
-      find help by checking out the #mendicant channel on Freenode.
+      If you think you have found a defect in one of our puzzles and it is not listed
+      below
+
+    %h1 FIXME
+
+    %p Figure out the best to help people (IRC / Campfire / Email / Discourse)
 
   - if @submission.correct?
     = render "puzzle_difficulty"
