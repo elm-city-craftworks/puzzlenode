@@ -40,7 +40,9 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 gem 'jquery-rails'
-gem 'compass-rails'
+gem 'bourbon'
+gem 'neat'
+gem 'refills'
 
 ###############
 # Maintenance #
