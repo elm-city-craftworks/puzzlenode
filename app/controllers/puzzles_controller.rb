@@ -1,8 +1,9 @@
 class PuzzlesController < ApplicationController
+  before_action :set_current_section
   respond_to :html
 
   def index
-    @puzzles = Puzzle.visible_to(current_user)
+    @puzzles = Puzzle.visible_to(current_user).decorate
 
     respond_with(@puzzles)
   end
@@ -33,5 +34,11 @@ class PuzzlesController < ApplicationController
         send_data render_to_string('show', :filename => "#{@puzzle.slug}.md")
       end
     end
+  end
+
+  private
+
+  def set_current_section
+    @current_section = 'puzzles'
   end
 end

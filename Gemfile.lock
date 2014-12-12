@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:thoughtbot/refills.git
+  revision: 5e97570d6d3bac6d1b27740201b687e41eb8c4fb
+  specs:
+    refills (0.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -59,6 +65,11 @@ GEM
     dotenv (0.10.0)
     dotenv-rails (0.10.0)
       dotenv (= 0.10.0)
+    draper (1.3.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0.3)
     erubis (2.7.0)
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
@@ -235,7 +246,7 @@ GEM
       nokogiri (>= 1.4.1)
       trollop
     redcarpet (2.1.0)
-    refills (0.0.2)
+    request_store (1.0.5)
     sass (3.2.19)
     sass-rails (4.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -276,6 +287,7 @@ DEPENDENCIES
   coffee-rails
   database_cleaner
   dotenv-rails
+  draper
   exception_notification
   factory_girl_rails
   ffaker
@@ -297,7 +309,7 @@ DEPENDENCIES
   rainbow
   rake (~> 10.1.1)
   redcarpet (= 2.1)
-  refills
+  refills!
   sass-rails
   uglifier
   will_paginate

@@ -43,6 +43,13 @@ class Puzzle < ActiveRecord::Base
       order("submissions.created_at")
   end
 
+  def difficulty
+    ratings.select("count(difficulty) as total, difficulty").
+      group("difficulty").
+      max {|r| r.total }.
+      difficulty
+  end
+
   private
 
   def sha1(tempfile)

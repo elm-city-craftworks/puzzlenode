@@ -23,6 +23,7 @@ Puzzlenode::Application.routes.draw do
   resources :announcements
 
   get '/leaderboard' => "leaderboard#index"
+  get '/about'       => "home#about"
 
   namespace :admin do
     resources :users

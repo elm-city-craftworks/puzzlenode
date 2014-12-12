@@ -55,6 +55,17 @@
     %br
     = f.file_field :file
 
+  %p
+    = f.label :icon, "Icon"
+    %br
+    = f.file_field :icon
+
+  - if @puzzle.icon
+    %p
+      %label
+        = f.check_box :remove_icon
+        Remove Icon
+
   #attachments
     %h3 Attachments
     = f.fields_for :attachments do |a|

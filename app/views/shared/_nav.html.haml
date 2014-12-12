@@ -1,10 +1,13 @@
-%ul
-  %li= link_to "Puzzles", puzzles_path
-  %li.node
-  %li= link_to "Leaderboard", leaderboard_path
-  %li.node
-  %li= link_to "Announcements", announcements_path
-  %li.node
-  %li= link_to_function "About", "PuzzleNode.about()"
-  = render :partial => "shared/user"
-.clear
+.navigation-wrapper
+  %h1= link_to "Puzzle Node", root_path
+  %nav
+    %ul
+      %li{class: active_nav('puzzles')}
+        = link_to "Puzzles", puzzles_path
+      %li{class: active_nav('leaderboard')}
+        = link_to "Leaderboard", leaderboard_path
+      %li{class: active_nav('announcements')}
+        = link_to "News", announcements_path
+      %li{class: active_nav('about')}
+        = link_to "About", about_path
+      //= render :partial => "shared/user"

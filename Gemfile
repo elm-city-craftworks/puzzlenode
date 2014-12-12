@@ -31,6 +31,7 @@ gem 'will_paginate'
 gem 'cocoon'
 gem 'md_preview'
 gem 'md_emoji'
+gem 'draper'
 
 ##########
 # Assets #
@@ -42,7 +43,7 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'bourbon'
 gem 'neat'
-gem 'refills'
+gem 'refills', git: 'git@github.com:thoughtbot/refills.git'
 
 ###############
 # Maintenance #
