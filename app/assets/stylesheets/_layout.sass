@@ -1,14 +1,15 @@
 body
-  @extend .texture-normal
+  @extend .texture-inverted
 
 #content, #footer
   +outer-container
+  padding: 0 10px
 
 header
   font-smoothing: antialiased
   background-color: $pn_dark_purple
   .navigation-wrapper
-    padding: 5px 0
+    padding: 5px 10px
     +outer-container
     nav
       float: right

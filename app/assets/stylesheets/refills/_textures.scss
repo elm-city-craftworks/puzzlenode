@@ -102,5 +102,5 @@
 }
 
 .texture-inverted {
-  @include texture(180deg, lighten(#333, 1), darken(#333, 10), 85, 0);
+  @include texture(180deg, #7C819B, #2E303A, 85, 0);
 }
