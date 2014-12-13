@@ -34,7 +34,7 @@
     padding: 3px;
     text-align: center;
     width: 100%;
-    background-color: $pn_light_purple;
+    background-color: #575164;
     color: #fff;
     font-size: 0.75em;
     font-family: 'Synchro LET', sans-serif;
@@ -118,7 +118,8 @@
     padding: $base-spacing/2 $gutter/2;
     font-size: .8em;
     line-height: 1.5em;
-    color: #666
+    color: #666;
+    min-height: 100px;
   }
 
   .card-stats {

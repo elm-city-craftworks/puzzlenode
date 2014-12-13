@@ -1,14 +1,9 @@
 - if current_user
   %li.user
-    #user_box
-      = gravatar_image current_user, 45, :id => "user_gravatar"
-      .user_name
-        = current_user.name
-      .user_information
-        = link_to "Profile", user_path(current_user.nickname)
-        &bull;
-        = link_to "Log out", logout_path, :id => "log-out"
+    = link_to user_path(current_user.nickname) do
+      = gravatar_image current_user, 24, class: "user-gravatar"
+      = current_user.name
+  %li= link_to "Log out", logout_path
 - else
-  %li.right
-    = link_to "Log in with GitHub", login_path, :id => "login"
-
+  %li
+    = link_to "Play", login_path, class: 'btn'

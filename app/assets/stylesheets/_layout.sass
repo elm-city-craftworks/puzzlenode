@@ -6,7 +6,6 @@ body
   padding: 0 10px
 
 header
-  font-smoothing: antialiased
   background-color: $pn_dark_purple
   .navigation-wrapper
     padding: 5px 10px
@@ -23,6 +22,8 @@ header
       a
         color: $pn_light_blue
         font-family: 'TR2N', sans-serif
+        &:hover
+          color: lighten($pn_light_blue, 15)
     ul
       display: inline
       line-height: 45px
@@ -36,8 +37,23 @@ header
               color: lighten($pn_light_blue, 15)
         a
           transition: color .25s
+          transition: color .25s
           color: $pn_light_purple
           font-family: 'Synchro LET', sans-serif
           font-size: 1.25em
           &:hover
             color: lighten($pn_light_purple, 15)
+          &.btn
+            transition: backgroud-color .25s
+            background-color: $pn_green
+            line-height: 0
+            color: #222
+            margin-top: -5px
+            &:hover
+              color: #fff
+          img.user-gravatar
+            margin-bottom: -7px
+            margin-right: 1em
+            padding: 2px
+            background-color: #05AB9B
+            border-radius: 2px
