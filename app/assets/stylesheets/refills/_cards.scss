@@ -92,21 +92,6 @@
     color: #333;
     font-family: 'Synchro LET', sans-serif;
 
-    .puzzle-icon {
-      float: left;
-      height: 42px;
-      width: 42px;
-      background-color: $pn_dark_purple;
-      color: $pn_light_blue;
-      font-size: 23px;
-      line-height: 43px;
-      padding-left: 4px;
-      text-align: center;
-      margin-right: 0.5em;
-      border-radius: 2px;
-      font-family: 'CMODSubotronBonusLevel'
-    }
-
     .completed-by {
       font-family: $base-font-family;
       color: #888;

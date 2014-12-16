@@ -29,6 +29,8 @@ class PuzzlesController < ApplicationController
       end
     end
 
+    @puzzle = @puzzle.decorate
+
     respond_with(@puzzle) do |format|
       format.md do
         send_data render_to_string('show', :filename => "#{@puzzle.slug}.md")

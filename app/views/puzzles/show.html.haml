@@ -5,16 +5,18 @@
     = button_to "Edit", edit_admin_puzzle_path(@puzzle), :method => :get
 
 #puzzle
-  %h1= @puzzle.name
+  .puzzle-title
+    = @puzzle.icon
+    = @puzzle.name
   = render :partial => "info_bar"
 
   - unless @puzzle.notice.blank?
     #notice= md @puzzle.notice
 
-  #description
+  .puzzle-content
     ~ md @puzzle.description
     %h2 Files
-    #files
-      = file_link "#{@puzzle.slug}.md", puzzle_path(@puzzle, :format => "md")
+    %ul.puzzle-files
+      %li= link_to "#{@puzzle.slug}.md", puzzle_path(@puzzle, :format => "md")
       - @puzzle.attachments.map do |attachment|
-        = file_link attachment.file_name, attachment.file_url
+        %li= link_to attachment.file_name, attachment.file_url

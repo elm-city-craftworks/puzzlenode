@@ -1,8 +1,4 @@
-- size ||= "small"
-
 - if puzzle.answered_correctly?(current_user) || current_user.try(:admin)
-  %button.clean-gray{:'data-url' => puzzle_comments_path(puzzle), :class => size}
-    View Discussion
+  = link_to "View Discussion", puzzle_comments_path(puzzle)
 - if show_solution_button?(current_user, puzzle)
-  %button.clean-gray{:'data-url' => new_puzzle_submission_path(puzzle), :class => size}
-    Submit your solution
+  = link_to "Submit your solution", new_puzzle_submission_path(puzzle)
