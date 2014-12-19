@@ -8,5 +8,6 @@ class Puzzles::Base < ApplicationController
     @puzzle   = Puzzle.find_by_slug(params[:puzzle_id])
     # TODO Remove legacy Puzzle#id based routes
     @puzzle ||= Puzzle.find(params[:puzzle_id])
+    @puzzle = @puzzle.decorate
   end
 end

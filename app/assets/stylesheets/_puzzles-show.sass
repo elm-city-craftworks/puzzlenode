@@ -1,34 +1,32 @@
 body.puzzles-show
   #puzzle
-    margin: 1em 0
-    box-shadow: 0 2px 4px #4C4C4C
-    .puzzle-title
-      border-top-right-radius: 2px
-      border-top-left-radius: 2px
-      background-color: $pn_light_blue
-      color: $pn_dark_purple
-      font-size: 1.75em
-      padding: 0.25em 0.5em
-      font-family: 'Synchro LET', sans-serif
-      .puzzle-icon
-        float: none
-        display: inline-block
     .puzzle-info
       +outer-container
       background-color: $pn_light_purple
       color: #fff
       padding: 0.5em 1em
-      a
-        color: lighten($pn_dark_purple, 10)
-        &:hover
-          color: lighten($pn_dark_purple, 20)
+      border-bottom: 1px solid rgba(0, 0, 0, 0.25)
       .left
         +span-columns(9)
       .right
         text-align: right
         +span-columns(3)
-    .puzzle-content
-      background-color: #f9f9f9
-      padding: 1em
-      border-bottom-right-radius: 2px
-      border-bottom-left-radius: 2px
+    .page-content
+      #notice
+        // TODO Style me
+      h2, h3, h4
+        font-family: 'Synchro LET', sans-serif
+        margin-bottom: 0.5em
+      h3
+        color: #555
+      h2
+        border-bottom: 2px solid $pn_light_blue
+        padding-bottom: 0.25em
+      pre
+        background-color: #eee
+        padding: 0.5em
+        border-radius: 2px
+      ol
+        @extend %default-ol
+      ul
+        @extend %default-ul

@@ -3,7 +3,7 @@ class Users::SubmissionsController < ApplicationController
   before_filter :current_user_only
 
   def show
-    @puzzle = @submission.puzzle
+    @puzzle = @submission.puzzle.decorate
     @rating = @submission.rating if @submission.correct?
   end
 

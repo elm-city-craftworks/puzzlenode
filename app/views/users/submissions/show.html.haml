@@ -1,33 +1,38 @@
-#puzzle
+.page
+  .page-title
+    = @puzzle.icon
+    = link_to @puzzle.name, puzzle_path(@puzzle)
+  .page-content
+    %h2
+      You got it
+      = @submission.correct ? "right. Nice job!" : "wrong. Give it another try!"
 
-  %h1= link_to @puzzle.name, puzzle_path(@puzzle)
-
-  - if @submission.correct && position = current_user.leaderboard_position
-    #notice.large
-      Congratulations, you are #{position.ordinalize} on the
-      = link_to "leaderboard", leaderboard_path
-      = render :partial => 'twitter_button', :locals => {:position => position}
-
-  %h2
-    You got it
-    = @submission.correct ? "right. Nice job!" : "wrong. Give it another try!"
-
-  - unless @submission.correct
-    %p.header-information
-      If you think you have found a defect in one of our puzzles and it is not listed
-      below
-
-    %h1 FIXME
-
-    %p Figure out the best to help people (IRC / Campfire / Email / Discourse)
-
-  - if @submission.correct?
-    = render "puzzle_difficulty"
-
-  #action
     - if @submission.correct
-      %button.clean-gray.large{:'data-url' => puzzle_comments_path(@puzzle)}
-        View Discussion
+      - if position = current_user.leaderboard_position
+        #leaderboard-notice
+          Guess what? You are now #{position.ordinalize} on the
+          #{link_to "leaderboard", leaderboard_path}. Way to go!
+          .twitter-button
+            = render 'twitter_button', position: position
+
+      = form_for @rating,
+        url: rate_user_submission_path(current_user, @submission),
+        remote: true do |f|
+        %h4
+          How would you rate this puzzle's difficulty?
+        %ul
+          - Rating::DIFFICULTIES.each do |rating|
+            %li
+              = f.label :difficulty, :value => rating do
+                = f.radio_button :difficulty, rating
+                = rating
+
+        = f.submit "Rate It"
+        = link_to "View discussion", puzzle_comments_path(@puzzle),
+          class: 'btn'
     - else
-      %button.clean-orange.large{:'data-url' => new_puzzle_submission_path(@puzzle)}
-        Try again
+      %p
+        If you think you have found a defect in one of our puzzles please
+        contact us.
+      = link_to "Try again", new_puzzle_submission_path(@puzzle),
+        class: 'btn'

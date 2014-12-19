@@ -4,16 +4,16 @@
   - content_for :admin_nav do
     = button_to "Edit", edit_admin_puzzle_path(@puzzle), :method => :get
 
-#puzzle
-  .puzzle-title
+#puzzle.page
+  .page-title
     = @puzzle.icon
     = @puzzle.name
   = render :partial => "info_bar"
 
-  - unless @puzzle.notice.blank?
-    #notice= md @puzzle.notice
+  .page-content
+    - unless @puzzle.notice.blank?
+      #notice= md @puzzle.notice
 
-  .puzzle-content
     ~ md @puzzle.description
     %h2 Files
     %ul.puzzle-files

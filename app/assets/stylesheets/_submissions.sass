@@ -1,0 +1,25 @@
+body.submissions-new, body.submissions-create
+  form.new_submission
+    margin: 1em 0
+    input[type=file]
+      background-color: #FFF
+      border-right: 2px
+      padding: 0.75em
+      margin-bottom: 1em
+      border: 1px solid #BBB
+
+body.submissions-show
+  h2
+    margin-bottom: 0.5em
+  #leaderboard-notice
+    @extend %flash-notice
+    .twitter-button
+      float: right
+
+  form.edit_rating
+    margin: 1em 0
+    h4
+      color: #666
+    ul
+      margin: 1em
+
